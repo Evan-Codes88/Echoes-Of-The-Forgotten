@@ -53,7 +53,7 @@ class Player:
         }
         with open(filename, 'w') as file:
             json.dump(data, file)
-        typewrite("Game saved successfully!\n")
+        typewrite(Back.BLUE + Fore.WHITE + "Game saved successfully!\n")
 
 
     # This class method will load a save file from the JSON file. It will also check if there is a save file to prevent errors
