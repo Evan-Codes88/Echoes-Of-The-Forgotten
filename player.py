@@ -9,33 +9,33 @@ colorama.init()
 # Create a class for the player. This class will store the name, health and have an empty inventory that can be added to later
 class Player:
     def __init__(self, name, health=100):
-        self.name = name 
-        self.health = health 
-        self.inventory = {} 
+        self.name = name
+        self.health = health
+        self.inventory = {}
 
-
-# Create a function that will reduce the players health by a certain amount
-    def take_damage(self, amount): 
-        self.health -= amount 
+    # Reduce the player's health by a certain amount and end the game if health reaches 0
+    def take_damage(self, amount):
+        self.health -= amount
         if self.health <= 0:
-            typewrite(Fore.RED + f"{self.name} has died!\n" + Style.RESET_ALL) 
+            typewrite(Fore.RED + f"{self.name} has died!\n" + Style.RESET_ALL)
+            typewrite("Game Over.\n")
+            quit()  # End the game here to avoid further execution
         else:
-            typewrite(f"{self.name} now has {self.health} health.\n") 
+            typewrite(f"{self.name} now has {self.health} health.\n")
 
     def attack(self, enemy, damage):
         typewrite(Fore.YELLOW + f"{self.name} attacks {enemy.name} for {damage} damage!\n" + Style.RESET_ALL)
         enemy.take_damage(damage)
 
-    # Create a function that will add items to the inventory. It should also check if there is any of that item currently and add to it
-    def add_item(self, item_name, quantity=1): 
-            if item_name in self.inventory: 
-                self.inventory[item_name] += quantity 
-            else:
-                self.inventory[item_name] = quantity 
-            typewrite(Fore.GREEN + f"{item_name} added to your inventory.\n" + Style.RESET_ALL)
+    # Add items to the inventory
+    def add_item(self, item_name, quantity=1):
+        if item_name in self.inventory:
+            self.inventory[item_name] += quantity
+        else:
+            self.inventory[item_name] = quantity
+        typewrite(Fore.GREEN + f"{item_name} added to your inventory.\n" + Style.RESET_ALL)
 
-        
-    # Create a function that loops through the inventory and displays the items and their quantities    
+    # Display the inventory
     def show_inventory(self):
         if self.inventory:
             typewrite("Your inventory contains:\n")
@@ -44,7 +44,7 @@ class Player:
         else:
             typewrite("Your inventory is empty.\n")
 
-    # Create a function that will create a dictionary and save the players name, health and inventory. Then print a message that says "Saved successfully"
+    # Save the game to a file
     def save_game(self, filename="savefile.json"):
         data = {
             'name': self.name,
@@ -55,8 +55,7 @@ class Player:
             json.dump(data, file)
         typewrite(Back.BLUE + Fore.WHITE + "Game saved successfully!\n")
 
-
-    # This class method will load a save file from the JSON file. It will also check if there is a save file to prevent errors
+    # Load a saved game from a file
     @classmethod
     def load_game(cls, filename="savefile.json"):
         try:
