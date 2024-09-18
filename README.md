@@ -28,19 +28,20 @@ This is a text-based adventure RPG game where players encounter enemies, manage 
 
 ### **Install the required packages**
 
-We recommend using a virtual environment for package management. Run the following commands to create and activate a virtual environment:
-
+**We recommend using a virtual environment for package management. Run the following commands to create and activate a virtual environment:**
 
 ``` python -m venv env ```
+
 ``` source env/bin/activate    # For Windows use: .\env\Scripts\activate ```
 
-Install required Python packages:
+**Install required Python packages:**
 
 Once inside the virtual environment, run the following command to install the necessary libraries:
 
-pip install -r requirements.txt
+```pip install -r requirements.txt```
 
-Run the game:
+**Run the game:**
+
 To start the game, simply execute the following command in your terminal or command prompt:
 
-python main.py
+```python main.py```
