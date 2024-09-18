@@ -1,17 +1,16 @@
-# Importing
-import json 
+import json
 from typewrite import typewrite
 import colorama
 from colorama import Fore, Back, Style
 colorama.init()
 
-
-# Create a class for the player. This class will store the name, health and have an empty inventory that can be added to later
+# Create a class for the player. This class will store the name, health, game state, and have an empty inventory that can be added to later
 class Player:
-    def __init__(self, name, health=100):
+    def __init__(self, name, health=100, game_state="beginning"):
         self.name = name
         self.health = health
         self.inventory = {}
+        self.game_state = game_state  # New game state attribute
 
     # Reduce the player's health by a certain amount and end the game if health reaches 0
     def take_damage(self, amount):
@@ -45,26 +44,32 @@ class Player:
             typewrite("Your inventory is empty.\n")
 
     # Save the game to a file
-    def save_game(self, filename="savefile.json"):
+    def save_game(self, filename="savefile.json", silent=False):
         data = {
             'name': self.name,
             'health': self.health,
-            'inventory': self.inventory
+            'inventory': self.inventory,
+            'game_state': self.game_state
         }
         with open(filename, 'w') as file:
             json.dump(data, file)
-        typewrite(Back.BLUE + Fore.WHITE + "Game saved successfully!\n")
+        
+        if not silent:  # Only print if silent is False
+            print("Game saved successfully!")
 
-    # Load a saved game from a file
+    # Load the game from a file
     @classmethod
     def load_game(cls, filename="savefile.json"):
         try:
             with open(filename, 'r') as file:
                 data = json.load(file)
-            player = cls(data['name'], data['health'])
-            player.inventory = data['inventory']
-            typewrite(f"Game loaded. Welcome back, {player.name}!\n")
-            return player
+                player = cls(
+                    name=data['name'],
+                    health=data['health'],
+                    game_state=data['game_state']
+                )
+                player.inventory = data['inventory']  # Load inventory
+                return player
         except FileNotFoundError:
-            typewrite("No save file found.\n")
-            return cls("Unnamed")
+            typewrite(Fore.RED + "No saved game found. Starting a new game...\n" + Style.RESET_ALL)
+            return None

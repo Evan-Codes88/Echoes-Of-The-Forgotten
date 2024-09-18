@@ -42,6 +42,11 @@ def enemy_encounter(player):
         typewrite(f"Enemy Health: {enemy.health}\n")
         typewrite(f"Your Health: {player.health}\n")
         print("")
+
+         # Update game state to reflect first enemy encounter
+        player.game_state = "first_enemy_encounter"
+        player.save_game()  # Auto-save before the first enemy encounter
+
         typewrite("What would you like to do?")
         print("")
         typewrite("1. Attack with Sword\n")
@@ -76,7 +81,7 @@ def enemy_encounter(player):
                         player.take_damage(enemy_attack_damage)
                         break
                     else:
-                        typewrite("Invalid choice. Try again.\n")
+                        invalid_input()
 
         elif choice == "2":
             player.show_inventory()
@@ -85,4 +90,4 @@ def enemy_encounter(player):
             typewrite("You try to run away, but the creature blocks your path!\n")
 
         else:
-            typewrite("Invalid choice. Try again.\n")
+            invalid_input()

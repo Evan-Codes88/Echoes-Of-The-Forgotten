@@ -41,6 +41,10 @@ def start_new_game():
     player = Player(player_name)
     print("")
     typewrite(f"Ahhh...your name must be, {player_name}\n")
+
+    player.game_state = "found_name"
+    player.save_game(silent = True)  # Auto-save after finding the sword
+
     time.sleep(0.5)
     typewrite("You stand up and sheath the sword at your side.\n")
     time.sleep(1)
@@ -50,6 +54,7 @@ def start_new_game():
     time.sleep(1)
     typewrite("A strange sense of familiarity washes over you, as though you’ve been here before...\n")
     time.sleep(0.5)
+
     typewrite("What would you like to do?\n")
     time.sleep(1)
     game_loop(player)
@@ -165,6 +170,10 @@ def continue_forward(player):
     print("")
     player.add_item("Locket")
     print("")
+
+    player.game_state = "found_locket"
+    player.save_game(silent = True)  # Auto-save after finding the locket
+
     time.sleep(1)
     enemy_encounter(player)
 
@@ -187,6 +196,10 @@ def right_to_water(player):
     print("")
     player.add_item("Locket")
     print("")
+
+    player.game_state = "found_locket"
+    player.save_game(silent = True)  # Auto-save after finding the locket
+
     time.sleep(1)
     enemy_encounter(player)
 
