@@ -1,23 +1,25 @@
-# Importing
 import colorama
 from colorama import Fore, Style
 import json
 import time
+# Import Typewriter
 from typewrite import typewrite
+# Import story
 from player import Player
 from error import invalid_input
 from first_enemy import enemy_encounter
-from first_enemy import Enemy
+from first_enemy import post_enemy_story
+from deeper_forest import explore_deeper_forest
+from investigate_structure import investigate_structure
 
 # Function to save the game before quitting
 def save_before_quit(player):
     save_choice = input(typewrite("Would you like to save your game before quitting? (yes/no): ")).strip().lower()
     if save_choice == "yes":
         player.save_game()
-    else:
-        typewrite("Goodbye!\n")
-        time.sleep(1)
-        quit
+    typewrite("Goodbye!\n")
+    time.sleep(1)
+    quit()
 
 # Function for the opening sequence
 def opening_sequence():
@@ -43,7 +45,7 @@ def start_new_game():
     typewrite(f"Ahhh...your name must be, {player_name}\n")
 
     player.game_state = "found_name"
-    player.save_game(silent = True)  # Auto-save after finding the sword
+    player.save_game(silent=True)  # Auto-save after finding the sword
 
     time.sleep(0.5)
     typewrite("You stand up and sheath the sword at your side.\n")
@@ -64,10 +66,34 @@ def load_game():
     player = Player.load_game()
     if player:
         typewrite(f"Welcome back, {player.name}!\n")
-        game_loop(player)
+        game_loop(player)  # Resume the game from the player's last saved point
+    else:
+        typewrite("Starting a new game...\n")
+        start_new_game()
 
 # Central game loop
 def game_loop(player):
+    # Function to handle game state based on the loaded game state
+    def resume_game(player):
+        if player.game_state == "first_enemy_encounter":
+            enemy_encounter(player)
+        elif player.game_state == "post_enemy_story":
+            post_enemy_story(player)  
+        elif player.game_state == "investigating_structure":
+            investigate_structure(player)
+        elif player.game_state == "exploring_forest":
+            explore_deeper_forest(player)
+        elif player.game_state == "found_locket":
+            enemy_encounter(player)  
+        else:
+            # If game_state is "beginning" or undefined, start the game normally
+            typewrite("Starting a new adventure...\n")
+            explore(player)
+
+    # Call resume_game to handle the loaded game state
+    resume_game(player)
+
+    # Standard game loop for ongoing gameplay
     while True:
         print("")
         typewrite("1. Explore your surroundings\n")
@@ -91,6 +117,7 @@ def game_loop(player):
             break
         else:
             invalid_input()
+
 
 # Function for exploring the surroundings
 def explore(player):
@@ -124,13 +151,15 @@ def explore(player):
 
                 if choice3 == "1":
                     continue_forward(player)
+                    break  
                 elif choice3 == "2":
-                    explore(player)
+                    return  
                 else:
                     invalid_input()
 
         elif choice2 == "2":
             right_to_water(player)
+            break  
         elif choice2 == "3":
             player.show_inventory()
         elif choice2 == "4":
@@ -141,8 +170,11 @@ def explore(player):
 
 # Function to go forward into the forest (moved outside)
 def continue_forward(player):
+    player.game_state = "continue_forward"
+    player.save_game(silent=True)
+
     print("")
-    typewrite("You decide to continue forward, away from the sound of the water. The forest thickens around you, the trees growing more twisted and gnarled as the sunlight fades behind the dense canopy.\n")
+    typewrite("You decide to continue forward, away from the sound of the water. The forest thickens around you, the trees growing more twisted and gnarled as the sunlight fades behind the dense canopy...\n")
     time.sleep(1)
     typewrite("With every step, the air grows colder, and an eerie silence descends, broken only by the occasional snap of a twig underfoot.\n")
     time.sleep(1)
@@ -169,22 +201,20 @@ def continue_forward(player):
     time.sleep(0.5)
     print("")
     player.add_item("Locket")
-    print("")
-
     player.game_state = "found_locket"
-    player.save_game(silent = True)  # Auto-save after finding the locket
-
-    time.sleep(1)
-    enemy_encounter(player)
+    player.save_game(silent=True)
+    enemy_encounter(player)  # Start the enemy encounter after finding the locket
 
 # Function for going towards the water
 def right_to_water(player):
     print("")
-    typewrite("You carefully step onto the overgrown path. As you weave through the trees, step over branches, and duck under vines, you hear the sound of rushing water becoming louder.\n")
+    typewrite("You carefully step onto the overgrown path. As you weave through the trees, step over branches, and duck under vines, you hear the sound of rushing water becoming louder...\n")
     time.sleep(1)
     typewrite("Eventually, the trees open up to reveal a shimmering river, its surface reflecting the light filtering through the canopy. At the river’s edge, half-submerged in the mud, you spot something gleaming faintly.\n")
     time.sleep(1)
-    typewrite("You kneel down to investigate and pull out a small, ornate locket. The moment your fingers touch the cold metal, a sudden jolt of memories floods your mind—a flash of faces, places, and distant voices.\n")
+    typewrite("You kneel down to investigate and pull out a small, ornate locket.\n")
+    time.sleep(0.5)
+    typewrite("The moment your fingers touch the cold metal, a sudden jolt of memories floods your mind—a flash of faces, places, and distant voices.\n")
     time.sleep(1)
     typewrite('"This locket… it feels familiar."\n')
     typewrite("You open it to reveal a faded photograph inside, barely discernible through the grime. As you wipe it clean, your heart skips a beat—the person in the photo... it's you. But something's off. There's a second person standing beside you, their face scratched out.\n")
@@ -196,13 +226,11 @@ def right_to_water(player):
     print("")
     player.add_item("Locket")
     print("")
-
+    player.add_item("Locket")
     player.game_state = "found_locket"
-    player.save_game(silent = True)  # Auto-save after finding the locket
-
-    time.sleep(1)
+    player.save_game(silent=True)
+    time.sleep(0.5)
     enemy_encounter(player)
-
 
 # Main menu at the start of the game
 def main_menu():
