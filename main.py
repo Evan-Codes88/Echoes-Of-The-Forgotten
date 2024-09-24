@@ -1,5 +1,6 @@
 import colorama
 from colorama import Fore, Style
+colorama.init()
 import json
 import time
 from typewrite import typewrite
@@ -11,7 +12,6 @@ from first_enemy import enemy_encounter, post_enemy_story
 from deeper_forest import explore_deeper_forest
 from investigate_structure import investigate_structure, castle
 from path_of_shadows import path_of_shadows, third_enemy, final_revelation
-
 
 # Function for the opening sequence
 def opening_sequence():
@@ -28,7 +28,6 @@ def opening_sequence():
     time.sleep(0.5)
     name = input(typewrite("What name is engraved in the sword? "))
     return name
-
 
 # Function to start a new game
 def start_new_game():
@@ -78,9 +77,8 @@ def start_new_game():
             break
         else:
             invalid_input()
-    
-    game_loop(player)
 
+    game_loop(player)
 
 # Function to load a saved game
 def load_game():
@@ -89,9 +87,8 @@ def load_game():
         typewrite(f"Welcome back, {player.name}!\n")
         game_loop(player)  # Resume the game from the player's last saved point
     else:
-        typewrite("Starting a new game...\n")
+        typewrite("No saved game found. Starting a new game...\n")
         start_new_game()
-
 
 # Central game loop
 def game_loop(player):
@@ -120,7 +117,6 @@ def game_loop(player):
 
     # Call resume_game to handle the loaded game state
     resume_game(player)
-
 
 # Function for exploring the surroundings
 def explore(player):
@@ -171,7 +167,6 @@ def explore(player):
         else:
             invalid_input()
 
-
 # Function to go forward into the forest
 def continue_forward(player):
     player.game_state = "continue_forward"
@@ -209,7 +204,6 @@ def continue_forward(player):
     player.save_game(silent=True)
     enemy_encounter(player)  # Start the enemy encounter after finding the locket
 
-
 # Function for going towards the water
 def right_to_water(player):
     print("")
@@ -219,44 +213,41 @@ def right_to_water(player):
     time.sleep(1)
     typewrite("You kneel down to investigate and pull out a small, ornate locket.\n")
     time.sleep(0.5)
-    typewrite("The moment your fingers touch the cold metal, a rush of memories floods your mind—faces, places, and voices long forgotten.\n")
+    typewrite("The moment your fingers touch the cold metal, a rush of memories floods your mind...\n")
     time.sleep(1)
-    typewrite('"This locket… it feels familiar."\n')
+    typewrite("This locket... it feels familiar.\n")
     time.sleep(1)
-    typewrite("You open it to reveal a faded photograph inside. It’s you... but there's another person beside you, their face scratched out.\n")
+    typewrite("You open it to reveal a faded photograph inside, but the face beside yours has been scratched out...\n")
     time.sleep(0.5)
     typewrite("A voice echoes in your mind, faint but unmistakable: 'Find me.'\n")
-    time.sleep(1)
-    typewrite("Realizing that this locket holds the key to your past, you pocket it and prepare for what lies ahead...\n")
     time.sleep(0.5)
-    print("")
     player.add_item("Locket")
     player.game_state = "found_locket"
     player.save_game(silent=True)
     enemy_encounter(player)  # Start the enemy encounter after finding the locket
 
-
-# Main entry point for the game
-def main():
-    colorama.init(autoreset=True)
-    typewrite("Welcome to Echoes Of The Past!\n")
-    print("---------------------------------")
+# Main entry point
+if __name__ == "__main__":
+    print("")
+    typewrite("Welcome to Silent Hollow!\n")
     time.sleep(1)
-    typewrite("1. Start a new game\n")
-    typewrite("2. Load a saved game\n")
-    
+
     while True:
+        typewrite("1. Start a new game\n")
+        typewrite("2. Load a saved game\n")
+        typewrite("3. Quit the game\n")
+
         choice = input(typewrite("Choose an action: ")).strip()
-        
+
         if choice == "1":
             start_new_game()
             break
         elif choice == "2":
             load_game()
             break
+        elif choice == "3":
+            print("")
+            typewrite("Thanks for playing! Goodbye!\n")
+            break
         else:
             invalid_input()
-
-
-if __name__ == "__main__":
-    main()

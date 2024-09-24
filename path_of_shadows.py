@@ -2,6 +2,7 @@ import colorama
 from colorama import Fore, Style
 import json
 import time
+
 # Import Typewriter
 from typewrite import typewrite
 # Import story elements
@@ -64,6 +65,7 @@ def path_of_shadows(player):
                         break
                     else:
                         invalid_input()
+                        typewrite(Fore.RED + "Please choose '1' to dodge left or '2' to dodge right.\n" + Style.RESET_ALL)
 
         elif choice == "2":
             player.show_inventory()
@@ -73,6 +75,7 @@ def path_of_shadows(player):
 
         else:
             invalid_input()
+            typewrite(Fore.RED + "Please choose '1', '2', or '3'.\n" + Style.RESET_ALL)
 
     if enemy.health <= 0:
         typewrite(Fore.GREEN + "You have defeated the Shadow Wraith!\n" + Style.RESET_ALL)
@@ -135,6 +138,7 @@ def third_enemy(player):
                         break
                     else:
                         invalid_input()
+                        typewrite(Fore.RED + "Please choose '1' to dodge left or '2' to dodge right.\n" + Style.RESET_ALL)
 
         elif choice == "2":
             player.show_inventory()
@@ -144,6 +148,7 @@ def third_enemy(player):
 
         else:
             invalid_input()
+            typewrite(Fore.RED + "Please choose '1', '2', or '3'.\n" + Style.RESET_ALL)
 
     if enemy.health <= 0:
         typewrite(Fore.GREEN + "You have defeated the Shadow Sentinel!\n" + Style.RESET_ALL)
@@ -183,32 +188,18 @@ def final_revelation(player):
         choice = input(typewrite("Choose your action: ")).strip().lower()
 
         if choice == "1":
-            typewrite(Fore.YELLOW + "You grip your sword tightly and charge at the figure, determined to escape...\n" + Style.RESET_ALL)
+            typewrite(Fore.YELLOW + "You charge at the figure, sword drawn!\n" + Style.RESET_ALL)
             time.sleep(1)
-            typewrite("But as your sword strikes, the figure dissolves into shadows, and you hear their voice laughing in your mind.\n")
+            typewrite(Fore.GREEN + "In a blinding flash, the light from your locket merges with your energy, and you fight with newfound strength...\n" + Style.RESET_ALL)
             time.sleep(1)
-            typewrite(Fore.RED + "'You cannot fight what you cannot escape,' they whisper.\n" + Style.RESET_ALL)
-            typewrite("The shadows close in, and everything goes black...\n")
-            time.sleep(1)
-            typewrite("Your fate is sealed. You are trapped in the shadow realm, never to return.\n")
+            typewrite(Fore.GREEN + "You succeed in vanquishing the shadow figure!\n" + Style.RESET_ALL)
             break
 
         elif choice == "2":
-            typewrite(Fore.GREEN + "You let go of your sword, accepting the reality of your existence in this realm.\n" + Style.RESET_ALL)
-            time.sleep(1)
-            typewrite("The shadows recede slightly, and the portal begins to glow brighter.\n")
-            time.sleep(1)
-            typewrite("In that moment of acceptance, you feel a sense of peace wash over you, and the memories that were stolen start to return in fragments.\n")
-            time.sleep(1)
-            typewrite(Fore.GREEN + "You have chosen to embrace your past and become one with the shadows.\n" + Style.RESET_ALL)
+            typewrite(Fore.RED + "You surrender to the darkness, allowing it to envelop you...\n" + Style.RESET_ALL)
             break
 
         else:
             invalid_input()
 
-    # End the game with a thank you message
-    typewrite(Fore.MAGENTA + "\nThank you for playing.\n" + Style.RESET_ALL)
-    
-    # Exit the game
-    exit()
-
+    typewrite("The choice you made will determine the fate of not just you, but the entire realm...\n")

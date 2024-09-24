@@ -1,4 +1,4 @@
- # Importing
+# Importing
 import colorama
 from colorama import Fore, Style
 import json
@@ -31,18 +31,21 @@ def explore_deeper_forest(player):
     player.game_state = "ancient_structure"
     player.save_game(silent=True)
 
-    typewrite("Will you enter the structure? (yes/no)\n")
-    choice = input(typewrite("Choose your action: ")).strip().lower()
+    while True:  # Loop until a valid input is received
+        typewrite("Will you enter the structure? (yes/no)\n")
+        choice = input(typewrite("Choose your action: ")).strip().lower()
 
-    if choice == "yes":
-        typewrite("You gather your courage and step inside the ancient structure...\n")
-        time.sleep(1)
-        investigate_structure(player)
-    elif choice == "no":
-        typewrite("You hesitate, feeling the weight of your decision. But the pull of the structure is too strong. You feel compelled to explore it further.\n")
-        time.sleep(1)
-        investigate_structure(player)
-    else:
-        invalid_input()
-
+        if choice == "yes":
+            typewrite("You gather your courage and step inside the ancient structure...\n")
+            time.sleep(1)
+            investigate_structure(player)
+            break  # Exit the loop after the action is taken
+        elif choice == "no":
+            typewrite("You hesitate, feeling the weight of your decision. But the pull of the structure is too strong. You feel compelled to explore it further.\n")
+            time.sleep(1)
+            investigate_structure(player)
+            break  # Exit the loop after the action is taken
+        else:
+            invalid_input()  # Call the invalid input handler
+            typewrite(Fore.RED + "Please enter 'yes' or 'no'.\n" + Style.RESET_ALL)  # Provide additional feedback
 

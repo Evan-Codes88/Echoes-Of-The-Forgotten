@@ -1,6 +1,5 @@
 import colorama
 from colorama import Fore, Style
-import json
 import time
 from typewrite import typewrite
 from player import Player
@@ -9,7 +8,6 @@ from enemy import Enemy
 from game_utils import save_before_quit
 from investigate_structure import investigate_structure
 from deeper_forest import explore_deeper_forest
-
 
 # Function for the enemy encounter at the water's edge
 def enemy_encounter(player):

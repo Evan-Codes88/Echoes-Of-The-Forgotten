@@ -3,8 +3,6 @@ from typewrite import typewrite
 import colorama
 from colorama import Fore, Style
 
-colorama.init()
-
 class Player:
     def __init__(self, name, health=100, game_state="beginning"):
         self.name = name
