@@ -2,24 +2,16 @@ import colorama
 from colorama import Fore, Style
 import json
 import time
-# Import Typewriter
 from typewrite import typewrite
-# Import story
 from player import Player
+from enemy import Enemy
+from game_utils import save_before_quit
 from error import invalid_input
-from first_enemy import enemy_encounter
-from first_enemy import post_enemy_story
+from first_enemy import enemy_encounter, post_enemy_story
 from deeper_forest import explore_deeper_forest
-from investigate_structure import investigate_structure
+from investigate_structure import investigate_structure, castle
+from path_of_shadows import path_of_shadows, third_enemy, final_revelation
 
-# Function to save the game before quitting
-def save_before_quit(player):
-    save_choice = input(typewrite("Would you like to save your game before quitting? (yes/no): ")).strip().lower()
-    if save_choice == "yes":
-        player.save_game()
-    typewrite("Goodbye!\n")
-    time.sleep(1)
-    quit()
 
 # Function for the opening sequence
 def opening_sequence():
@@ -59,6 +51,30 @@ def start_new_game():
 
     typewrite("What would you like to do?\n")
     time.sleep(1)
+
+    while True:
+        print("")
+        typewrite("1. Explore your surroundings\n")
+        typewrite("2. Check inventory\n")
+        typewrite("3. Rest\n")
+        typewrite("4. Quit the game\n")
+        
+        choice = input(typewrite("Choose an action: ")).strip()
+
+        if choice == "1":
+            explore(player)
+        elif choice == "2":
+            player.show_inventory()
+        elif choice == "3":
+            typewrite("You lay down and close your eyes, falling asleep almost instantly...\n")
+            time.sleep(2)
+            typewrite("You wake up from your rest....What would you like to do?\n")
+            print("")
+        elif choice == "4":
+            save_before_quit(player)
+            break
+        else:
+            invalid_input()
     game_loop(player)
 
 # Function to load a saved game
@@ -85,38 +101,19 @@ def game_loop(player):
             explore_deeper_forest(player)
         elif player.game_state == "found_locket":
             enemy_encounter(player)  
+        elif player.game_state == "solved_puzzle":
+            castle(player)
+        elif player.game_state == "second_enemy_encounter":
+            path_of_shadows(player)
+        elif player.game_state == "third_enemy_encounter":
+            third_enemy(player)
+        elif player.game_state == "final_revelation":
+            final_revelation(player)
         else:
-            # If game_state is "beginning" or undefined, start the game normally
-            typewrite("Starting a new adventure...\n")
             explore(player)
 
     # Call resume_game to handle the loaded game state
     resume_game(player)
-
-    # Standard game loop for ongoing gameplay
-    while True:
-        print("")
-        typewrite("1. Explore your surroundings\n")
-        typewrite("2. Check inventory\n")
-        typewrite("3. Rest\n")
-        typewrite("4. Quit the game\n")
-        
-        choice = input(typewrite("Choose an action: ")).strip()
-
-        if choice == "1":
-            explore(player)
-        elif choice == "2":
-            player.show_inventory()
-        elif choice == "3":
-            typewrite("You lay down and close your eyes, falling asleep almost instantly...\n")
-            time.sleep(2)
-            typewrite("You wake up from your rest....What would you like to do?\n")
-            print("")
-        elif choice == "4":
-            save_before_quit(player)
-            break
-        else:
-            invalid_input()
 
 
 # Function for exploring the surroundings
@@ -226,7 +223,6 @@ def right_to_water(player):
     print("")
     player.add_item("Locket")
     print("")
-    player.add_item("Locket")
     player.game_state = "found_locket"
     player.save_game(silent=True)
     time.sleep(0.5)

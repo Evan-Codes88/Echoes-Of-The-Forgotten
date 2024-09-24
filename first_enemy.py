@@ -5,21 +5,11 @@ import time
 from typewrite import typewrite
 from player import Player
 from error import invalid_input
+from enemy import Enemy
+from game_utils import save_before_quit
 from investigate_structure import investigate_structure
 from deeper_forest import explore_deeper_forest
 
-# Simple Enemy class
-class Enemy:
-    def __init__(self, name, health=50):
-        self.name = name
-        self.health = health
-
-    def take_damage(self, amount):
-        self.health -= amount
-        if self.health <= 0:
-            typewrite(Fore.RED + f"{self.name} has been defeated!\n" + Style.RESET_ALL)
-        else:
-            typewrite(f"{self.name} now has {self.health} health.\n")
 
 # Function for the enemy encounter at the water's edge
 def enemy_encounter(player):
@@ -94,57 +84,31 @@ def enemy_encounter(player):
     elif player.health <= 0:
         typewrite(Fore.RED + "You have been defeated by the Shadow Beast...\n" + Style.RESET_ALL)
 
-        # Function for what happens after the enemy encounter
-        def post_enemy_story(player):
-            # Update the game state after defeating the enemy
-            player.game_state = "post_enemy_story"
-            player.save_game(silent=True)  # Auto-save after defeating the enemy
-
-            typewrite("\nAs the dust settles, you look around the area. The river flows calmly again, but something about the locket tugs at your mind...\n")
-            time.sleep(1)
-            typewrite("Ahead, the path seems to diverge into two directions. One leads deeper into the forest, and the other towards a crumbling stone structure.\n")
-
-            while True:
-                typewrite("\n1. Investigate the stone structure\n")
-                typewrite("2. Explore deeper into the forest\n")
-                typewrite("3. Check inventory\n")
-
-                choice = input(typewrite("Choose an action: ")).strip()
-
-                if choice == "1":
-                    player.game_state = "investigating_structure"
-                    player.save_game(silent=True)
-                    investigate_structure(player)
-                    break
-                elif choice == "2":
-                    player.game_state = "exploring_forest"
-                    player.save_game(silent=True)
-                    explore_deeper_forest(player)
-                    break
-                elif choice == "3":
-                    player.show_inventory()
-                else:
-                    invalid_input()
-
-# Function to handle post-enemy story
+# Function for what happens after the enemy encounter
 def post_enemy_story(player):
-    print("")
-    typewrite("As the dust settles, you look around the area. The river flows calmly again, but something about the locket tugs at your mind...\n")
+    # Update the game state after defeating the enemy
+    player.game_state = "post_enemy_story"
+    player.save_game(silent=True)  # Auto-save after defeating the enemy
+
+    typewrite("\nAs the dust settles, you look around the area. The river flows calmly again, but something about the locket tugs at your mind...\n")
     time.sleep(1)
     typewrite("Ahead, the path seems to diverge into two directions. One leads deeper into the forest, and the other towards a crumbling stone structure.\n")
 
     while True:
-        print("")
-        typewrite("1. Investigate the stone structure\n")
+        typewrite("\n1. Investigate the stone structure\n")
         typewrite("2. Explore deeper into the forest\n")
         typewrite("3. Check inventory\n")
-        
+
         choice = input(typewrite("Choose an action: ")).strip()
 
         if choice == "1":
+            player.game_state = "investigating_structure"
+            player.save_game(silent=True)
             investigate_structure(player)
             break
         elif choice == "2":
+            player.game_state = "exploring_forest"
+            player.save_game(silent=True)
             explore_deeper_forest(player)
             break
         elif choice == "3":

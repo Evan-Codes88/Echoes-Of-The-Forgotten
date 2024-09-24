@@ -2,6 +2,7 @@ import json
 from typewrite import typewrite
 import colorama
 from colorama import Fore, Style
+
 colorama.init()
 
 class Player:
