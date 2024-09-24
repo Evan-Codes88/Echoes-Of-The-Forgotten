@@ -29,13 +29,15 @@ def opening_sequence():
     name = input(typewrite("What name is engraved in the sword? "))
     return name
 
+
 # Function to start a new game
 def start_new_game():
     player_name = opening_sequence()
     player = Player(player_name)
+    
     print("")
-    typewrite(f"Ahhh...your name must be, {player_name}\n")
-
+    typewrite(f"Ahhh... your name must be {player_name}\n")
+    
     player.game_state = "found_name"
     player.save_game(silent=True)  # Auto-save after finding the sword
 
@@ -43,6 +45,7 @@ def start_new_game():
     typewrite("You stand up and sheath the sword at your side.\n")
     time.sleep(1)
     print("")
+    
     player.add_item("Sword", 1)
     print("")
     time.sleep(1)
@@ -58,7 +61,7 @@ def start_new_game():
         typewrite("2. Check inventory\n")
         typewrite("3. Rest\n")
         typewrite("4. Quit the game\n")
-        
+
         choice = input(typewrite("Choose an action: ")).strip()
 
         if choice == "1":
@@ -68,14 +71,16 @@ def start_new_game():
         elif choice == "3":
             typewrite("You lay down and close your eyes, falling asleep almost instantly...\n")
             time.sleep(2)
-            typewrite("You wake up from your rest....What would you like to do?\n")
+            typewrite("You wake up from your rest... What would you like to do?\n")
             print("")
         elif choice == "4":
             save_before_quit(player)
             break
         else:
             invalid_input()
+    
     game_loop(player)
+
 
 # Function to load a saved game
 def load_game():
@@ -87,6 +92,7 @@ def load_game():
         typewrite("Starting a new game...\n")
         start_new_game()
 
+
 # Central game loop
 def game_loop(player):
     # Function to handle game state based on the loaded game state
@@ -94,13 +100,13 @@ def game_loop(player):
         if player.game_state == "first_enemy_encounter":
             enemy_encounter(player)
         elif player.game_state == "post_enemy_story":
-            post_enemy_story(player)  
+            post_enemy_story(player)
         elif player.game_state == "investigating_structure":
             investigate_structure(player)
         elif player.game_state == "exploring_forest":
             explore_deeper_forest(player)
         elif player.game_state == "found_locket":
-            enemy_encounter(player)  
+            enemy_encounter(player)
         elif player.game_state == "solved_puzzle":
             castle(player)
         elif player.game_state == "second_enemy_encounter":
@@ -121,7 +127,7 @@ def explore(player):
     print("")
     typewrite("You're standing in the heart of a dense, mysterious forest. The air is thick with the smell of moss and damp earth, while towering trees with gnarled, twisted trunks rise high above, their leaves forming a canopy that blocks out most of the sunlight...\n")
     time.sleep(1)
-    typewrite("To your left, you can make out the faint outline of an overgrown path. \nTo your right, the trees form a near-impenetrable wall, and the faint sound of rushing water can be heard\n")
+    typewrite("To your left, you can make out the faint outline of an overgrown path. \nTo your right, the trees form a near-impenetrable wall, and the faint sound of rushing water can be heard.\n")
     time.sleep(1)
     typewrite("Which way would you like to go?\n")
 
@@ -148,15 +154,15 @@ def explore(player):
 
                 if choice3 == "1":
                     continue_forward(player)
-                    break  
+                    break
                 elif choice3 == "2":
-                    return  
+                    return
                 else:
                     invalid_input()
 
         elif choice2 == "2":
             right_to_water(player)
-            break  
+            break
         elif choice2 == "3":
             player.show_inventory()
         elif choice2 == "4":
@@ -165,7 +171,8 @@ def explore(player):
         else:
             invalid_input()
 
-# Function to go forward into the forest (moved outside)
+
+# Function to go forward into the forest
 def continue_forward(player):
     player.game_state = "continue_forward"
     player.save_game(silent=True)
@@ -202,6 +209,7 @@ def continue_forward(player):
     player.save_game(silent=True)
     enemy_encounter(player)  # Start the enemy encounter after finding the locket
 
+
 # Function for going towards the water
 def right_to_water(player):
     print("")
@@ -211,36 +219,33 @@ def right_to_water(player):
     time.sleep(1)
     typewrite("You kneel down to investigate and pull out a small, ornate locket.\n")
     time.sleep(0.5)
-    typewrite("The moment your fingers touch the cold metal, a sudden jolt of memories floods your mind—a flash of faces, places, and distant voices.\n")
+    typewrite("The moment your fingers touch the cold metal, a rush of memories floods your mind—faces, places, and voices long forgotten.\n")
     time.sleep(1)
     typewrite('"This locket… it feels familiar."\n')
-    typewrite("You open it to reveal a faded photograph inside, barely discernible through the grime. As you wipe it clean, your heart skips a beat—the person in the photo... it's you. But something's off. There's a second person standing beside you, their face scratched out.\n")
     time.sleep(1)
-    typewrite("Before you can think further, a voice echoes in your mind, faint but unmistakable: 'Find me.'\n")
+    typewrite("You open it to reveal a faded photograph inside. It’s you... but there's another person beside you, their face scratched out.\n")
     time.sleep(0.5)
-    typewrite("Shaken, you pocket the locket. Whatever the truth is, it lies with the person in the photo. And you need to find them.\n")
+    typewrite("A voice echoes in your mind, faint but unmistakable: 'Find me.'\n")
     time.sleep(1)
+    typewrite("Realizing that this locket holds the key to your past, you pocket it and prepare for what lies ahead...\n")
+    time.sleep(0.5)
     print("")
     player.add_item("Locket")
-    print("")
     player.game_state = "found_locket"
     player.save_game(silent=True)
-    time.sleep(0.5)
-    enemy_encounter(player)
+    enemy_encounter(player)  # Start the enemy encounter after finding the locket
 
-# Main menu at the start of the game
-def main_menu():
+
+# Main entry point for the game
+def main():
+    colorama.init(autoreset=True)
+    typewrite("Welcome to the Silent Hollow Adventure Game!\n")
+    time.sleep(1)
+    typewrite("1. Start a new game\n")
+    typewrite("2. Load a saved game\n")
+    
     while True:
-        time.sleep(1)
-        print("")
-        typewrite("Welcome to Echoes of the Past\n")
-        print("------------------------------\n")
-        time.sleep(1)
-        typewrite("1. Start a New Game\n")
-        typewrite("2. Load Saved Game\n")
-        typewrite("3. Quit\n")
-        time.sleep(0.5)
-        choice = input(typewrite("Select an option: ")).strip()
+        choice = input(typewrite("Choose an action: ")).strip()
         
         if choice == "1":
             start_new_game()
@@ -248,12 +253,9 @@ def main_menu():
         elif choice == "2":
             load_game()
             break
-        elif choice == "3":
-            typewrite("Goodbye!\n")
-            break
         else:
             invalid_input()
 
-# Start the game
+
 if __name__ == "__main__":
-    main_menu()
+    main()
