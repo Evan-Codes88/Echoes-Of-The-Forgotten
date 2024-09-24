@@ -239,7 +239,8 @@ def right_to_water(player):
 # Main entry point for the game
 def main():
     colorama.init(autoreset=True)
-    typewrite("Welcome to the Silent Hollow Adventure Game!\n")
+    typewrite("Welcome to Echoes Of The Past!\n")
+    print("---------------------------------")
     time.sleep(1)
     typewrite("1. Start a new game\n")
     typewrite("2. Load a saved game\n")
