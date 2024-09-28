@@ -193,13 +193,18 @@ def final_revelation(player):
             typewrite(Fore.GREEN + "In a blinding flash, the light from your locket merges with your energy, and you fight with newfound strength...\n" + Style.RESET_ALL)
             time.sleep(1)
             typewrite(Fore.GREEN + "You succeed in vanquishing the shadow figure!\n" + Style.RESET_ALL)
-            break
+            time.sleep(1)
+            ending()
 
         elif choice == "2":
             typewrite(Fore.RED + "You surrender to the darkness, allowing it to envelop you...\n" + Style.RESET_ALL)
-            break
+            ending()
 
         else:
             invalid_input()
 
-    typewrite("The choice you made will determine the fate of not just you, but the entire realm...\n")
+
+def ending():
+    typewrite("Thank you for playing!!")
+    time.sleep(2)
+    quit()
