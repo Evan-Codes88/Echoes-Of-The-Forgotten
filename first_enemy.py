@@ -34,6 +34,7 @@ def enemy_encounter(player):
         typewrite("1. Attack with Sword\n")
         typewrite("2. Check Inventory\n")
         typewrite("3. Run away\n")
+        typewrite("4. Quit the game\n")
 
         choice = input(typewrite("Choose an action: ")).strip()
 
@@ -71,7 +72,8 @@ def enemy_encounter(player):
 
         elif choice == "3":
             typewrite("You try to run away, but the creature blocks your path!\n")
-
+        elif choice == "4":
+            save_before_quit()
         else:
             invalid_input()
 
