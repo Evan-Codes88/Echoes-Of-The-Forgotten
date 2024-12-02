@@ -1,0 +1,23 @@
+# Virtual environment
+venv/
+
+# Byte-compiled files
+*.pyc
+__pycache__/
+
+# Log files
+*.log
+
+# Environment variables
+.env
+
+# IDE/editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+get-pip.py
