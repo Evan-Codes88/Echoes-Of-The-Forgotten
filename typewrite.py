@@ -6,7 +6,7 @@ import time
 def typewrite(string):
 # Parameters: string (str): The string to be printed with the typewriter effect. This is the input to the function.
 
-    # Convert the input string into a lsit of characters
+    # Convert the input string into a list of characters
     liststring = list(string)
 
     # Loop through each character of the string
