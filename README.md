@@ -56,6 +56,7 @@ If using Git, clone the repository and navigate to the project folder:
 ```bash
 git clone <repository-url>
 cd <repository-folder>
+```
 
 ### **2. Set Up Virtual Environment**
 A virtual environment is recommended to manage dependencies without affecting your global Python setup:
