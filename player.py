@@ -1,6 +1,6 @@
 # Import the 'json' module to handle saving and loading game data in JSON format
 import json
-# Import the 'typewrite' function from a custom module named 'typewrite,py' to display text with a typewriter effect
+# Import the 'typewrite' function from a custom module named 'typewrite.py' to display text with a typewriter effect
 from typewrite import typewrite
 # Import the 'colorama' package to add coloured text to the console, this enhances user experience
 import colorama
