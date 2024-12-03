@@ -6,21 +6,21 @@ Typewriter function -- The purpose of this function is to simulate a typewriter 
 """
 
 def typewrite(string):
-# Parameter: string (str): The string to be printed with the typewriter effect. This is the input to the function.
-
-    # Convert the input string into a list of characters
+    """
+    Parameters:
+    string (str): The string that will be printed with the typewriter effect.
+    """
+    # Convert the input string into a list of characters so each character can be processed individually
     liststring = list(string)
 
-    # Loop through each character of the string
+    # Loop through each character in the list
     for char in liststring:
 
-        # Print the character without a newline, and flush the output immediately
+        # Print the current character without adding a newline, and flush the output to immediately display it
         print(char, end="", flush=True)
 
-         # Pause for 0.035 seconds before printing the next character to create the typewriter effect
+        # Pause for 0.035 seconds before printing the next character to simulate the typewriter effect
         time.sleep(0.035)
 
-
-    #  Returns: str: An empty string is returned after the string has been printed. The return value is not used as the function's main task is to print the string with the typewriter effect.
+    # Return an empty string as the function's main purpose is to print the text, not to return anything meaningful
     return ""
-    
