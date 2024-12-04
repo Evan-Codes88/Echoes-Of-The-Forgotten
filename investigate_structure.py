@@ -1,17 +1,41 @@
 # Importing
-import colorama
 from colorama import Fore, Style
+# imports the colorama library to print different colours and fonts in the terminal
+
 import json
+# imports json module, this allows the game the save progress in json format that can be loaded on command
+
 import time
+
+
 from typewrite import typewrite
+# Imports the function 'typewriter', when called give a typewriter affect when printing text in the terminal
+
 from player import Player
+# imports the player class, manages player attributes, expanded explanation in player.py
+
 from error import invalid_input
+# imports invalid_input function, tells the user if their input is valid or not
+
 from game_utils import save_before_quit
+# imports save_before_quit function, allows user to save game progress
+
 from path_of_shadows import path_of_shadows
+# imports path of shadows function, defines players current area as path of shadows
 
 def investigate_structure(player):
     player.game_state = "investigating_structure"
     player.save_game(silent=True)
+
+    """
+    Purpose: This function handles the player exploring a structure, solving a puzzle and claiming a key
+    
+        parameters: player (object), handles attributes like players state, health points current inventory and any saved progress. 
+                    correct_order: this defines the correct sequence needed for the puzzle to be solved
+                    valid_elements: describes a list of elements that the player can pick
+    
+    Returns: None (just procedural), updates player state, inventory saves progress and if puzzle is solved continue to castle
+    """
     
     typewrite("You walk cautiously toward the crumbling stone structure. The air grows colder, and you feel the weight of something watching you.\n")
     time.sleep(0.5)
@@ -42,6 +66,12 @@ def investigate_structure(player):
             typewrite(Fore.RED + "\nYou must enter exactly five elements.\n" + Style.RESET_ALL)
             continue
 
+        """
+        a while loops handles the puzzle and only continues if solved correctly 
+        
+        if length isn't equal to 5 returns error and loops
+        """
+
         # Validate if input elements are valid
         valid_elements = ["sun", "rain", "seed", "growth", "shadow"]
         for element in input_elements:
@@ -57,10 +87,13 @@ def investigate_structure(player):
                 castle(player)
                 player.game_state = "solved_puzzle"
                 player.save_game(silent=True)
-                break
             else:
                 typewrite(Fore.RED + "\nThe symbols flash angrily as you hear the voice again:\n" + Style.RESET_ALL)
                 typewrite(Fore.CYAN + "'Incorrect. You must understand the cycle to unlock the truth.'\n" + Style.RESET_ALL)
+
+            """
+            validates player input to solve puzzle, loops over each string to check its validity, if puzzle is solved and string input is correct, loops breaks. if wrong continues
+            """
 
 def castle(player):
     typewrite("With the ancient key now in your possession, the atmosphere in the chamber changes. The rumbling ceases, and an eerie stillness fills the room.\n")
@@ -130,3 +163,8 @@ def castle(player):
 
     path_of_shadows(player)
 
+"""
+player has completed puzzle and story is continued to next state.
+
+changes players state to path of shadows
+"""
