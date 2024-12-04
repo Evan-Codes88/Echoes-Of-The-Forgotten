@@ -1,0 +1,63 @@
+FEEDBACK RECEIVED:
+
+Document Checked: README.md
+Sent: 2/12/24
+Received: 3/12/24
+Who: Ben Gorman
+Feedback Received:
+    "Firstly, an incredibly cool application. The readme was very easy to read and ran through everything in an easy to understand way. In terms of the content itself, I’d double check the conditions of your licenses as some of the packages you have used need to have the licenses they are under specifically listed so that the license conditions are not violated. Certain licenses like the MIT license and BSD license need the full text of the license included (I have attached a relevant article below). https://fossa.com/blog/open-source-software-licenses-101-bsd-3-clause-license/ I’d also include a quick explanation of the packages that the program uses and why. Those could go into the code comments or read me, either should work. Aside from that, we couldn’t find anything else. If you need anything, such as a review of your code comments, let us know."
+
+Action Taken:
+    Expanded the "Licenses and Legal/Ethical Impacts" section of the README to provide clear summaries and the full required text for each license. Code packages were explained more in the code comments
+
+Document Checked: Typewrite.py
+Sent: 2/12/24
+Received: 3/12/24
+Who: Tilley
+Feedback Received: 
+    "My feedback is to do an online search on documentation comments or docustring code comments. When I did this search I found the correct way to comment in code is to use the triple double quotes “““your comments””” this method will link to the comments to the functions.
+
+    Also you had a comment for parameters: string in the typewriter function, I believe this is classified as an argument in the function so maybe change it to argument so it aligns with the assignment code comment brief."
+
+Action Taken:
+    Added more code comments with “”” to link comments to functions.
+    Regarding the String within the typewriter function. Code comments remained as parameters as parameters are variables that are defined within the parentheses of a function definition. In the case of typewrite(string), string is the parameter that accepts the text you want to display with the typewriter effect. When you call the typewrite function, you pass an argument (the actual text you want to print) into the string parameter.
+
+
+Document Checked: Player.py
+Sent: 3/12/24
+Received: 3/12/24
+Who: Earvin
+Feedback Received:
+    "Comments are very detailed explaining the purpose of each function. Each function has comments describing the purpose, parameters, and returned data, this makes it easy for other developers to understand what the code is doing. Comments made describing individual lines of code are just as descriptive which is good. Can not find anything that would need improvement or change as the comments cover all the code sufficiently."
+
+Action Taken:
+    No need for any action based off of this feedback.
+
+
+
+
+
+
+
+
+
+
+
+
+FEEDBACK SENT:
+
+
+Document Checked: roll_dice_functions.py
+Received: 2/12/24
+Sent: 2/12/24
+Who Reviewed: Evan
+Feedback Sent To Ben:
+    Feedback I provided:
+    "Strengths: Comprehensive Explanations: Each function has comments explaining its purpose, usage, and expected behaviour, which helps understand the code's functionality. Logical Flow: The comments follow the logical sequence of operations, which is helpful for someone unfamiliar with the code. Detailed Parameter Descriptions: Explanations about what inputs are expected (like "Y/N" choices) are clear and informative. Area's For Improvement: Clarify Complex Logic Steps: Some of the code blocks contain logical operations that would benefit from an explanation about their purpose. For example: 
+    if len(n) < 2:
+                continue
+    Recommendation: Add a comment explaining why this condition is important, such as ensuring the input follows the correct format. Overall-Explanation: I know that the README file will probably contain an explanation of the app as a whole, but it might be worth at some point explaining how all of these functions in this file work together, like the purpose and flow of the program.
+    If your D&D dice roller uses any assets, libraries, or code snippets from other developers, it is important to ensure you have the proper licensing - in order to comply with any open-source licences, like MIT, GPL. Additionally, D&D is copyrighted intellectual property, and any references or themes tied to it may need to adhere to the rights of the creators."
+
+
