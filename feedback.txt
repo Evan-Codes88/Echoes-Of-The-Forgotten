@@ -61,3 +61,9 @@ Feedback Sent To Ben:
     If your D&D dice roller uses any assets, libraries, or code snippets from other developers, it is important to ensure you have the proper licensing - in order to comply with any open-source licences, like MIT, GPL. Additionally, D&D is copyrighted intellectual property, and any references or themes tied to it may need to adhere to the rights of the creators."
 
 
+Document Checked: main.py, colors.py
+Recieved: 5/12/24
+Sent: 5/12/24
+Who Reviewed: Evan
+Feedback Sent To Earvin:
+    Feedback I provided: "Hey Earvin. I had a look over your Main.py and Colors.py files. Your comments are very well structured and explain the functions, their purpose, and how they work. I couldn't find anything you could improve on as it is already really solid."
