@@ -67,3 +67,27 @@ Sent: 5/12/24
 Who Reviewed: Evan
 Feedback Sent To Earvin:
     Feedback I provided: "Hey Earvin. I had a look over your Main.py and Colors.py files. Your comments are very well structured and explain the functions, their purpose, and how they work. I couldn't find anything you could improve on as it is already really solid."
+
+
+Document Checked: add_student function and README.md
+Received: 3/12/24
+Sent: 5/12/24
+Who Reviewed: Jack and Evan
+Feedback Sent To Brendon:
+    Feedback We Provided: "First of all this is a really clean and well built project and is it very easy to understand even the first time looking at it, all the different cases of names, allergies to guardian information is well covered and everything has it’s own easily understandable section with concise and detailed comments to go with it.
+
+It is really hard to find something that could be changed the only feedback I could give is on line 71 instead of using 
+
+age_in_years = (datetime.now() - birthday_date).days // 365
+
+To calculate age manually you could use a library like dateutil to calculate it accurately for you. It factors in all kinds of stuff even leap years and varying month lengths." - add_student function
+
+"The README.md file is absolutely amazing. It is very well written, informative and comprehensive. I don't have much to add at all as all laws and licensing is correctly referenced, requirements, purpose and instalment. The only thing I could suggest is maybe explaining how to clone/fork the repository a bit more extensively. Other than that it is perfect!" - README.md
+
+
+Document Checked: conversion_history.py
+Recieved: 3/12/24
+Sent: 5/12/24
+Who Reviewed: Jack
+Feedback Sent To Tilley:
+    Feedback I Sent: "This Class is very comprehensive and well written and does exactly as intended. Very detailed notes explain all aspects of the code and answer any question I would’ve had about it. I am honestly hard up for feedback great use of error to handling, JSON serialisation using best practise, and each method has it’s own responsibility and doing so well and concisely."
